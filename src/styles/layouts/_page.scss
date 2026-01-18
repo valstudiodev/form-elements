@@ -2,7 +2,7 @@
 @use '../settings/mixins' as *;
 
 .page {
-   padding-top: toRem(200);
+   padding-block: toRem(100);
 
    &__container {
       display: flex;

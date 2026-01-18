@@ -283,7 +283,7 @@ html[data-input=keyboard] .menu-dropdown__link:focus-visible {
   padding-left: 0.625rem;
 }
 .page {
-  padding-top: 12.5rem;
+  padding-block: 6.25rem;
 }
 .page__container {
   display: -webkit-box;
@@ -778,6 +778,9 @@ html[data-input=mouse] .button--radius-white:hover {
   }
 }
 
+.form-item {
+  width: 100%;
+}
 .form-item__inner {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1081,16 +1084,15 @@ input[type=text]:focus {
 
 html,
 body {
-  background-color: #fff;
   margin: 0;
   padding: 0;
+  background-color: rgb(221, 221, 221);
 }
 
 body {
   font-family: "Poppins", sans-serif;
   line-height: 1.5;
   color: #000;
-  background-color: rgb(221, 221, 221);
 }
 body.scroll-lock {
   overflow: hidden;
