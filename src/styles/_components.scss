@@ -1,0 +1,590 @@
+@use "sass:math";
+@use './settings/settings' as *;
+@use './settings/_mixins.scss' as *;
+
+.components {
+
+   // .components__container
+   &__container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: toRem(50);
+      padding-top: toRem(50);
+   }
+}
+
+// ===========================================================================================
+// -----------------------------
+// visually-hidden
+// -----------------------------
+.visually-hidden {
+   position: absolute;
+   width: 1px;
+   height: 1px;
+   padding: 0;
+   margin: -1px;
+   overflow: hidden;
+   clip: rect(0, 0, 0, 0);
+   white-space: nowrap;
+   border: 0;
+}
+
+// ===========================================================================================
+// -----------------------------
+// Buttons-active
+// -----------------------------
+.icon-menu {
+   position: relative;
+   width: toRem(30);
+   height: toRem(20);
+   z-index: 10;
+   flex-shrink: 0;
+
+   &::before,
+   &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: toRem(3);
+      border-radius: toRem(10);
+      background-color: $black;
+      transition: all 0.3s;
+   }
+
+   &::before {
+      top: 0;
+   }
+
+   &::after {
+      bottom: 0;
+   }
+
+   span {
+      position: absolute;
+      top: 50%;
+      right: 0;
+      translate: 0 -50%;
+      background-color: $black;
+      width: 70%;
+      height: toRem(3);
+      border-radius: toRem(10);
+      transition: all 0.3s;
+   }
+
+   @media (min-width: toEm($mobile)) {
+      display: none;
+   }
+}
+
+.menu-open {
+   .icon-menu {
+      &::before {
+         top: 50%;
+         rotate: 45deg;
+         translate: 0 -50%;
+      }
+
+      &::after {
+         top: 50%;
+         rotate: -45deg;
+         translate: 0 -50%;
+      }
+
+      span {
+         width: 0;
+      }
+   }
+}
+
+.icon-more {
+   position: relative;
+   width: toRem(15);
+   height: toRem(15);
+   z-index: 10;
+   flex-shrink: 0;
+
+   &::before,
+   &::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      // background-color: $purpleLight;
+      height: toRem(2);
+      border-radius: toRem(6);
+   }
+
+   &::before {
+      left: 0;
+      top: 50%;
+      translate: 0 -50%;
+   }
+
+   &::after {
+      rotate: 90deg;
+      top: 50%;
+      translate: 0 -50%;
+   }
+}
+
+.button {
+   color: $white;
+   font-size: toRem(14);
+   padding-block: toRem(15);
+   background-color: $bluePrimary;
+   border-radius: toRem(5);
+   font-weight: 700;
+   letter-spacing: toRem(0.1);
+   transition: all 0.3s;
+   line-height: 1.4;
+   border: toRem(1) solid $bluePrimary;
+   z-index: 20;
+
+   @include hover {
+      background-color: transparent;
+      color: $bluePrimary;
+   }
+
+   &--icon-arrow {
+      @include adaptiveValue('padding-inline', 25, 13);
+      display: flex;
+      flex-direction: row-reverse;
+      align-items: center;
+      gap: toRem(15);
+      transition: translate 0.4s ease-out;
+
+      @include hover {
+         &::before {
+            translate: toRem(5) 0;
+         }
+      }
+
+      &::before {
+         font-size: toRem(10);
+         transition: translate 0.4s ease-out;
+      }
+   }
+
+   &--radius {
+      padding-inline: toRem(36);
+      border-radius: toRem(37);
+
+      &-white {
+         background-color: transparent;
+         border: toRem(1) solid $white;
+
+         @include hover {
+            background-color: $bluePrimary;
+            color: $white;
+            border-color: $bluePrimary;
+         }
+      }
+   }
+}
+
+// ===========================================================================================
+// -----------------------------
+// rating
+// -----------------------------
+// ============== option #1 =================
+// .rating {
+//    display: inline-flex;
+//    flex-direction: row-reverse;
+//    justify-content: flex-end;
+//    border: none;
+//    padding: 0;
+//    margin: 0;
+
+//    &__item {
+//       // Ховаємо інпут, залишаючи його доступним
+//       position: absolute;
+//       width: 1px;
+//       height: 1px;
+//       margin: -1px;
+//       clip: rect(0 0 0 0);
+//       overflow: hidden;
+
+
+//       // Коли обрано — фарбуємо всі попередні (візуально зліва)
+//       &:checked~.rating__label {
+//          .rating__icon {
+//             fill: gold;
+//             stroke: gold;
+//          }
+//       }
+
+//       // Фокус при роботі з Tab
+//       &:focus-visible+.rating__label {
+//          outline: 2px solid gold;
+//          outline-offset: 3px;
+//          border-radius: 4px;
+//       }
+//    }
+
+//    &__label {
+//       cursor: pointer;
+//       padding: 0 4px;
+//       transition: transform 0.2s ease;
+
+//       // ГОЛОВНЕ: клік проходить крізь SVG на label
+//       .rating__icon {
+//          pointer-events: none;
+//          width: toRem(20);
+//          aspect-ratio: 1;
+//          fill: #ccc;
+//          transition: fill 0.2s ease, transform 0.2s ease;
+//       }
+
+//       // Hover ефект
+//       &:hover,
+//       &:hover~.rating__label {
+//          .rating__icon {
+//             fill: lighten(gold, 10%);
+//             stroke: gold;
+//             transform: scale(1.1);
+//          }
+//       }
+
+//       &:active {
+//          transform: scale(0.9);
+//       }
+//    }
+// }
+
+// ============== option #2 =================
+.rating {
+   display: inline-flex;
+   flex-direction: row-reverse;
+   justify-content: flex-end;
+   border: none;
+   padding: 0;
+   margin: 0;
+
+   &__item {
+      // Повністю ховаємо радіокнопку візуально, але залишаємо для Tab
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      clip: rect(0 0 0 0);
+      overflow: hidden;
+
+      // Стан фокусу (коли людина перемикається клавіатурою)
+      &:focus-visible+.rating__label {
+         outline: 2px solid gold;
+         outline-offset: 4px;
+         border-radius: 2px;
+      }
+
+      // Головна логіка: фарбуємо зірку та всі наступні лейбли (через row-reverse)
+      &:checked~.rating__label {
+         color: gold;
+      }
+   }
+
+   &__label {
+      cursor: pointer;
+      color: #ccc;
+      transition: color 0.2s ease-in-out, scale 0.3s ease;
+      padding: 0 2px;
+      will-change: scale;
+
+      // Встановлюємо іконку через псевдоелемент
+      &::before {
+         font-size: toRem(18);
+      }
+
+      // Ефект при наведенні мишкою
+      &:hover,
+      &:hover ~ .rating__label {
+         color: gold;
+      }
+
+      &:active {
+         scale: 0.9;
+      }
+   }
+
+   &__icon {
+      width: toRem(20);
+      aspect-ratio: 1;
+      fill: #ccc;
+   }
+}
+
+
+// ===========================================================================================
+// -----------------------------
+// form - appointment
+// -----------------------------
+.form-container {
+   display: flex;
+   flex-direction: column;
+   align-items: flex-start;
+   @include adaptiveValue('row-gap', 40, 20);
+   background-color: $white;
+   max-width: toRem(328);
+   border-radius: toRem(10);
+   @include adaptiveValue('padding', 40, 20);
+
+   @media (max-width: toEm(780)) {
+      width: 100%;
+   }
+
+   // .form-hero__title
+   &__title {
+      @include adaptiveValue('font-size', 24, 20);
+      font-weight: 700;
+      color: $colorSecondary;
+      letter-spacing: toRem(0.1);
+   }
+}
+
+.form-item {
+
+   &__inner {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: toRem(10);
+      width: 100%;
+   }
+
+   // .form-item__wrapper
+   &__wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: toRem(10);
+      width: 100%;
+   }
+
+   // .form-item__label
+   &__label {
+      font-size: toRem(14);
+      font-weight: 600;
+      color: $colorSecondary;
+      letter-spacing: toRem(0.2);
+   }
+
+   &__body {
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: 100%;
+
+      &--select {
+         &:focus-within {
+            .form-item__icon--department {
+               &::before {
+                  transform: rotate(180deg);
+               }
+            }
+         }
+      }
+
+      &--time {
+         &:focus-within {
+            .form-item__icon--time {
+               &::before {
+                  transform: rotate(180deg);
+               }
+            }
+         }
+      }
+
+      &:has(.form-item__select:valid) {
+         .form-item__icon--department {
+            &::before {
+               rotate: 0;
+            }
+         }
+      }
+   }
+
+   &__icon {
+      position: absolute;
+      top: 50%;
+      right: 0;
+      translate: 0 -50%;
+      margin-right: toRem(20);
+      transition: rotate 0.4s;
+      rotate: 0deg;
+      pointer-events: none;
+      cursor: pointer;
+
+      &::before {
+         font-size: toRem(8);
+         transition: transform 0.4s;
+         will-change: rotate;
+         color: $colorPrimary;
+      }
+   }
+
+   &__select {
+      font-family: "Montserrat", sans-serif;
+      border: toRem(1) solid $borderColor;
+      padding-block: toRem(11);
+      padding-left: toRem(21);
+      border-radius: toRem(5);
+      width: 100%;
+      appearance: none;
+      height: toRem(50);
+      color: $colorPrimary;
+      outline: none;
+      cursor: pointer;
+      background-color: $white;
+      font-size: toRem(14);
+      letter-spacing: toRem(0.2);
+
+      option {
+         color: $colorPrimary;
+      }
+
+      &::placeholder {
+         font-family: "Montserrat", sans-serif;
+      }
+
+      &:focus-visible {
+         border: toRem(1) solid $bluePrimary;
+         box-shadow: 0 0 0 2px rgba(221, 221, 221, 0.5);
+      }
+
+      &:has(option[value=""]:checked) {
+         font-size: toRem(14);
+         color: $colorPrimary;
+         letter-spacing: toRem(0.2);
+      }
+   }
+
+   // .form-item__input
+   &__input {
+      border: toRem(1) solid $borderColor;
+      padding-block: toRem(11);
+      padding-left: toRem(21);
+      border-radius: toRem(5);
+      transition: box-shadow 0.3s ease, border 0.4s, opacity 0.4s;
+      appearance: none;
+      height: toRem(50);
+      font-size: toRem(16);
+
+      &::placeholder {
+         font-size: toRem(14);
+         letter-spacing: toRem(0.2);
+         line-height: 200%;
+         /* 28/14 */
+         transition: opacity 0.4s;
+      }
+
+      &:focus {
+         &::placeholder {
+            opacity: 0;
+         }
+      }
+
+      &:focus-visible {
+         border: toRem(1) solid $bluePrimary;
+         box-shadow: 0 0 0 2px rgba(221, 221, 221, 0.5);
+      }
+   }
+
+   &__button {
+      width: 100%;
+      margin-top: toRem(30);
+   }
+}
+
+input[type="time"] {
+   appearance: none;
+   padding-right: toRem(15)
+}
+
+.booking-container {
+   position: relative;
+   width: 100%;
+
+   &__label {
+      font-size: toRem(14);
+      font-weight: 600;
+      letter-spacing: toRem(0.2);
+      color: $colorSecondary;
+      margin-bottom: toRem(12);
+   }
+
+   &__inner {
+      display: flex;
+      align-items: center;
+      margin-top: toRem(10);
+      height: toRem(50);
+
+      &:focus-within {
+         .form-item__icon {
+            &::before {
+               transform: translateY(0) rotate(180deg);
+            }
+         }
+      }
+   }
+}
+
+input[type="text"] {
+   width: 100%;
+   padding: 12px;
+   border: toRem(1) solid #e0e0e0;
+   border-radius: 8px;
+   cursor: pointer;
+   background-color: #fff;
+   transition: border-color 0.4s;
+   font-size: toRem(16);
+}
+
+input[type="text"]:focus {
+   border-color: #007bff;
+   outline: none;
+}
+
+.slots-dropdown {
+   display: none;
+   /* Приховано за замовчуванням */
+   position: absolute;
+   top: 110%;
+   left: 0;
+   width: 100%;
+   background: white;
+   border-radius: 12px;
+   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+   padding: 15px;
+   z-index: 100;
+   border: 1px solid #eee;
+}
+
+.slots-grid {
+   display: grid;
+   grid-template-columns: repeat(3, 1fr);
+   gap: toRem(3);
+}
+
+.slot-btn {
+   padding: toRem(4);
+   border: 1px solid #007bff;
+   background: transparent;
+   color: #007bff;
+   border-radius: 6px;
+   cursor: pointer;
+   text-align: center;
+   font-weight: 500;
+   transition: all 0.2s;
+}
+
+.slot-btn:hover {
+   background: #007bff;
+   color: white;
+}
+
+.slot-btn.busy {
+   border-color: #ccc;
+   color: #ccc;
+   cursor: not-allowed;
+}

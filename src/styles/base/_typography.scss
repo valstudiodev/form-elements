@@ -1,0 +1,63 @@
+@font-face {
+   font-family: 'iconfont';
+   src:
+      url('/src/assets/fonts/icomoon.woff2') format('woff2');
+   font-weight: normal;
+   font-style: normal;
+   font-display: block;
+}
+
+[class*="--icon-"]::before {
+   font-family: 'iconfont';
+   line-height: 1 !important;
+   -webkit-font-smoothing: antialiased;
+   -moz-osx-font-smoothing: grayscale;
+}
+
+[class*="--icon-arrow"]::before {
+   content: "\e900";
+}
+
+[class*="--icon-basket"]::before {
+   content: "\e901";
+}
+
+[class*="--icon-check"]::before {
+   content: "\e902";
+}
+
+[class*="--icon-fb"]::before {
+   content: "\e903";
+}
+
+[class*="--icon-instagram"]::before {
+   content: "\e904";
+}
+
+[class*="--icon-people"]::before {
+   content: "\e905";
+}
+
+[class*="--icon-search"]::before {
+   content: "\e906";
+}
+
+[class*="--icon-shevron"]::before {
+   content: "\e907";
+}
+
+[class*="--icon-star-empty"]::before {
+   content: "\e908";
+}
+
+[class*="--icon-star-full"]::before {
+   content: "\e909";
+}
+
+[class*="--icon-twitter"]::before {
+   content: "\e90a";
+}
+
+[class*="--icon-chevron-right"]::before {
+   content: "\e90b";
+}

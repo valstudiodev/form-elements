@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en" init-page-loader>
+
+<head>
+   <meta charset="UTF-8" />
+   <style>
+      /* Миттєвий фон для всього вікна */
+      html {
+         background-color: rgba(142, 194, 242, 1);
+      }
+
+      /* Ховаємо контент, поки немає статусу "ready" */
+      html[init-page-loader] body {
+         opacity: 0 !important;
+         visibility: hidden !important;
+         overflow: hidden;
+         /* Блокуємо скрол під час завантаження */
+      }
+
+      /* Повертаємо видимість та скрол */
+      html[init-page-loader="ready"] body {
+         opacity: 1 !important;
+         visibility: visible !important;
+         overflow: visible;
+         transition: opacity 0.6s ease-in-out !important;
+      }
+
+      /* Стиль прогрес-бару (щоб не чекати завантаження файлу CSS) */
+      #loader-progress-bar {
+         position: fixed;
+         top: 0;
+         left: 0;
+         height: 2px;
+         background-color: #00ADB5;
+         z-index: 100000;
+         width: 0%;
+         transition: width 0.4s ease, opacity 0.3s ease;
+         box-shadow: 0 0 10px #0C73B8;
+      }
+   </style>
+   <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <title>Start-template</title>
+</head>
+
+<body>
+
+   <div class="wrapper">
+      <header class="header">
+         <!-- <div class="header__container">
+            <div class="header__inner">
+               <figure class="header__logo">
+                  <img src="" alt="">
+               </figure>
+               <nav class="header__menu menu-header menu-dropdown">
+                  <ul class="menu-header__list menu-dropdown__list">
+                     <li class="menu-header__item menu-dropdown__item menu-dropdown__item--submenu">
+                        <a href="#" class="menu-header__link menu-dropdown__link">Products</a>
+                        <ul class="menu-dropdown__submenu submenu-dropdown">
+                           <li><a href="#" class="submenu-dropdown__link">Item 1</a></li>
+                           <li><a href="#" class="submenu-dropdown__link">Item 2</a></li>
+                        </ul>
+                     </li>
+                     <li class="menu-header__item menu-dropdown__item menu-dropdown__item--submenu">
+                        <a href="#" class="menu-header__link menu-dropdown__link">About</a>
+                        <ul class="menu-dropdown__submenu submenu-dropdown">
+                           <li><a href="#" class="submenu-dropdown__link">Item 1</a></li>
+                           <li><a href="#" class="submenu-dropdown__link">Item 2</a></li>
+                           <li><a href="#" class="submenu-dropdown__link">Item 3</a></li>
+                           <li><a href="#" class="submenu-dropdown__link">Item 4</a></li>
+                        </ul>
+                     </li>
+                  </ul>
+               </nav>
+               <button class="icon-menu">
+                  <span></span>
+               </button>
+            </div>
+         </div> -->
+      </header>
+
+      <main class="page">
+         <div class="page__container">
+
+            <!-- option #1 -->
+            <!--
+            <fieldset class="rating">
+               <legend class="visually-hidden">Оцініть товар</legend>
+               <input class="rating__item" type="radio" id="star5" name="r" value="5">
+               <label class="rating__label" for="star5">
+                  <svg class="rating__icon">
+                     <use href="/src/assets/icons/symbol-defs.svg#icon-star-empty"></use>
+                  </svg>
+                  <span class="visually-hidden">Rating 5 stars</span>
+               </label>
+
+               <input class="rating__item" type="radio" id="star4" name="r" value="4">
+               <label class="rating__label" for="star4">
+                  <svg class="rating__icon">
+                     <use href="/src/assets/icons/symbol-defs.svg#icon-star-empty"></use>
+                  </svg>
+                  <span class="visually-hidden">Rating 4 stars</span>
+               </label>
+
+               <input class="rating__item" type="radio" id="star3" name="r" value="3">
+               <label class="rating__label" for="star3">
+                  <svg class="rating__icon">
+                     <use href="/src/assets/icons/symbol-defs.svg#icon-star-empty"></use>
+                  </svg>
+                  <span class="visually-hidden">Rating 3 stars</span>
+               </label>
+
+               <input class="rating__item" type="radio" id="star2" name="r" value="2">
+               <label class="rating__label" for="star2">
+                  <svg class="rating__icon">
+                     <use href="/src/assets/icons/symbol-defs.svg#icon-star-empty"></use>
+                  </svg>
+                  <span class="visually-hidden">Rating 2 stars</span>
+               </label>
+
+               <input class="rating__item" type="radio" id="star1" name="r" value="1">
+               <label class="rating__label" for="star1">
+                  <svg class="rating__icon">
+                     <use href="/src/assets/icons/symbol-defs.svg#icon-star-empty"></use>
+                  </svg>
+                  <span class="visually-hidden">Rating 1 stars</span>
+               </label>
+            </fieldset> -->
+
+
+            <!-- option #2 -->
+            <fieldset class="rating">
+               <legend class="visually-hidden">Оцініть товар</legend>
+               <input class="rating__item" type="radio" id="star5" name="r" value="5">
+               <label class="rating__label rating__label--icon-star-full" for="star5">
+                  <span class="visually-hidden">Rating 5 stars</span>
+               </label>
+
+               <input class="rating__item" type="radio" id="star4" name="r" value="4">
+               <label class="rating__label rating__label--icon-star-full" for="star4">
+                  <span class="visually-hidden">Rating 4 stars</span>
+               </label>
+
+               <input class="rating__item" type="radio" id="star3" name="r" value="3" checked>
+               <label class="rating__label rating__label--icon-star-full" for="star3">
+                  <span class="visually-hidden">Rating 3 stars</span>
+               </label>
+
+               <input class="rating__item" type="radio" id="star2" name="r" value="2">
+               <label class="rating__label rating__label--icon-star-full" for="star2">
+                  <span class="visually-hidden">Rating 2 stars</span>
+               </label>
+
+               <input class="rating__item" type="radio" id="star1" name="r" value="1">
+               <label class="rating__label rating__label--icon-star-full" for="star1">
+                  <span class="visually-hidden">Rating 1 stars</span>
+               </label>
+            </fieldset>
+
+
+            <!-- form - appointment -->
+            <article class="form-container">
+               <form action="#" method="post" class="form-container__form form-item">
+                  <fieldset class="form-item__inner">
+                     <legend class="form-item__title">Book Appointment</legend>
+                     <div class="hidden-field" style="display:none;" aria-hidden="true">
+                        <label for="_gotcha">Keep this field empty</label>
+                        <input type="text" name="_gotcha" id="_gotcha" tabindex="-1">
+                     </div>
+                     <div class="form-item__wrapper">
+                        <label for="name" class="form-item__label">Name *</label>
+                        <input type="text" id="name" name="name" class="form-item__input" placeholder="Full Name * "
+                           required>
+                     </div>
+                     <div class="form-item__wrapper">
+                        <label for="email" class="form-item__label">Email address *</label>
+                        <input type="email" name="email" id="email" class="form-item__input"
+                           placeholder="example@gmail.com " required>
+                     </div>
+                     <div class="form-item__wrapper">
+                        <label for="department" class="form-item__label">Department *</label>
+                        <div class="form-item__body form-item__body--select">
+                           <select class="form-item__select" name="department" id="department" required>
+                              <option class="form-item__option form-item__option--icon-shevron" value="" disabled
+                                 selected hidden>Please
+                                 Select
+                              </option>
+                              <option value="emergency">Emergency Department</option>
+                              <option value="cardiology">Cardiology</option>
+                              <option value="pediatrics">Pediatrics</option>
+                              <option value="surgery">Surgery</option>
+                              <option value="neurology">Neurology</option>
+                           </select>
+                           <span class="form-item__icon form-item__icon--department form-item__icon--icon-shevron"
+                              aria-hidden="true"></span>
+                        </div>
+                     </div>
+                     <div class="form-item__wrapper">
+                        <div class="booking-container" aria-expanded="false" role="combobox" aria-haspopup="listbox">
+                           <label class="form-item__label booking-container__label" for="appointment">Time *</label>
+                           <div class="form-item__body form-item__body--time booking-container__inner">
+                              <input type="text" name="appointment" id="appointment" aria-controls="slots-dropdown"
+                                 placeholder="4:00 Available" readonly required>
+                              <span class="form-item__icon form-item__icon--time form-item__icon--icon-shevron"
+                                 aria-hidden="true"></span>
+                           </div>
+                           <div id="slots-dropdown" role="listbox" class="slots-dropdown">
+                              <div class="slots-grid" id="slots-grid">
+                              </div>
+                           </div>
+                        </div>
+                        <input type="hidden" name="selected_time" id="final-time">
+                     </div>
+                     <button type="submit" class="form-item__button button">Book Appointment</button>
+                  </fieldset>
+
+               </form>
+            </article>
+         </div>
+      </main>
+
+      <footer class="footer">
+         <div class="footer__container">
+            <p>Footer</p>
+         </div>
+      </footer>
+   </div>
+
+
+   <div id="app"></div>
+   <script type="module" src="src/main.js"></script>
+</body>
+
+</html>

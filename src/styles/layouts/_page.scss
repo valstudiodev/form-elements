@@ -1,0 +1,19 @@
+@use '../settings/settings' as *;
+@use '../settings/mixins' as *;
+
+.page {
+   padding-top: toRem(200);
+
+   &__container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: toRem(50);
+   }
+}
+
+
+
+
+
+
