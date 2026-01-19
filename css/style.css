@@ -809,6 +809,40 @@ html[data-input=mouse] .button--radius-white:hover {
   gap: 0.625rem;
   width: 100%;
 }
+.form-item__title {
+  font-weight: 500;
+  letter-spacing: 0.0125rem;
+}
+@media (min-width: 86.875em) {
+  .form-item__title {
+    font-size: 24px;
+  }
+}
+@media (min-width: 20em) and (max-width: 86.875em) {
+  .form-item__title {
+    font-size: clamp( 20px , 18.8037383178px  +  0.3738317757vw , 24px );
+  }
+}
+@media (max-width: 20em) {
+  .form-item__title {
+    font-size: 20px;
+  }
+}
+@media (min-width: 86.875em) {
+  .form-item__title {
+    margin-bottom: 40px;
+  }
+}
+@media (min-width: 20em) and (max-width: 86.875em) {
+  .form-item__title {
+    margin-bottom: clamp( 20px , 14.0186915888px  +  1.8691588785vw , 40px );
+  }
+}
+@media (max-width: 20em) {
+  .form-item__title {
+    margin-bottom: 20px;
+  }
+}
 .form-item__label {
   font-size: 0.875rem;
   font-weight: 600;

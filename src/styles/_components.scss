@@ -344,6 +344,7 @@
 
 .form-item {
    width: 100%;
+
    &__inner {
       display: flex;
       flex-direction: column;
@@ -359,6 +360,13 @@
       align-items: flex-start;
       gap: toRem(10);
       width: 100%;
+   }
+
+   &__title {
+      @include adaptiveValue('font-size', 24, 20);
+      font-weight: 500;
+      letter-spacing: toRem(0.2);
+      @include adaptiveValue('margin-bottom', 40, 20);
    }
 
    // .form-item__label
